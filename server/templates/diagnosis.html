@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Cases{% endblock %}
+{% block content %}
+<h1>Cases</h1>
+<table class="table">
+    <tr><td><b>#</b></td><td>{{ case.id }}</td></tr>
+    <tr><td><b>Date</b></td><td>{{ case.time.strftime("%Y-%m-%d %H:%M:%S") }}</td></tr>
+    <tr><td><b>Location<b></td><td>{{ case.location }}</td></tr>
+    <tr><td><b>Patient</b></td><td>({{ patient.username }}) {{ patient.name }}</td></tr>
+
+    <tr><td><b>Doctor</b></td><td>
+    {% if doctor is not none %}
+    ({{ doctor.username }}) {{ doctor.name }}, {{ doctor.affiliation }}
+    {% else %}
+    None
+    {% endif %}
+    </td></tr>
+
+    <tr><td><b>Pulse Rate</b></td><td>{{ case.pulse_rate }}</td></tr>
+    <tr><td><b>Body Temperature</b></td><td>{{ case.body_temperature }}</td></tr>
+    <tr><td><b>Blood Pressure</b></td><td>{{ case.blood_pressure }}</td></tr>
+</table>
+
+<form method="post" action="/cases/{{ case.id }}/prescription">
+    <div class="mb-3">
+        <label for="prescriptionField"><h3>Prescription</h3></label>
+        <textarea class="form-control" name="prescription" placeholder="Write a prescription..." id="prescriptionField">{{ case.prescription }}</textarea>
+        <small>Submit an empty text to remove prescription</small>
+    </div>
+    <input class="btn btn-primary" type="submit" value="Submit">
+</form>
+{% endblock %}
