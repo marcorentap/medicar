@@ -9,9 +9,9 @@ class Case(db.Model):
     time = db.Column(db.DateTime)
     patient_id = db.Column(db.Integer, ForeignKey("user.id"))
     doctor_id = db.Column(db.Integer, ForeignKey("user.id"))
-    pulse_rate = db.Column(db.Integer)
+    pulse_rate = db.Column(db.Float)
     body_temperature = db.Column(db.Float)
-    blood_pressure = db.Column(db.Integer)
+    blood_oxygen_saturation = db.Column(db.Float)
     prescription = db.Column(db.String(512))
     location = db.Column(db.String(256))
 

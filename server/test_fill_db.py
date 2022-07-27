@@ -13,9 +13,9 @@ def generate_case():
         patient_id = random.randint(1, 7),
         # doctor_id = random.randint(1, 7),
         doctor_id = None,
-        pulse_rate = random.randint(80, 120),
+        pulse_rate = round(random.uniform(80.0, 120.0), 1),
         body_temperature = round(random.uniform(36.0, 41.0), 1),
-        blood_pressure = random.randint(70, 120),
+        blood_oxygen_saturation = round(random.uniform(95.0, 99.0), 1),
         prescription = "",
         location = "Location" + str(random.randint(1, 5))
     )

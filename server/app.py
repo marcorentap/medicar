@@ -36,7 +36,7 @@ def show_test_db():
         # patient location
         # pulse rate
         # body temp
-        # blood pressure
+        # blood oxygen saturation
 
 
         # Create new patient if the patient does not exist
@@ -58,7 +58,7 @@ def show_test_db():
             patient_id=patient_list[0].id,
             pulse_rate=request.form["pulse_rate"],
             body_temperature=request.form["body_temperature"],
-            blood_pressure=request.form["blood_pressure"],
+            blood_oxygen_saturation=request.form["blood_oxygen_saturation"],
             location=request.form["location"]
         )
 
