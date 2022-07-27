@@ -2,7 +2,7 @@ import requests
 
 SERVER = "https://medicar.marcorentap.com"
 
-def add_diagnosis(username, name, location, pulse_rate, body_temp, blood_pressure):
+def add_diagnosis(username: str, name: str, location: str, pulse_rate: int, body_temp: float, blood_pressure: int):
     r = requests.post(SERVER, data={
         'username' : username,
         'name' : name,
