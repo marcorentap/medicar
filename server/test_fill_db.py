@@ -39,7 +39,7 @@ fill_data.append(Doctor(username="doctor5", password="dpassword5", name="Doctor5
 fill_data.append(Doctor(username="doctor6", password="dpassword6", name="Doctor6 Full Name", affiliation="institute6"))
 fill_data.append(Doctor(username="doctor7", password="dpassword7", name="Doctor7 Full Name", affiliation="institute7"))
 
-for i in range(0, 25):
+for i in range(0, 10):
     fill_data.append(generate_case())
 
 create_app().app_context().push()
