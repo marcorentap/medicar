@@ -21,7 +21,7 @@
             {% for case in cases %}
             <tr>
                 <td>{{ case.id }}</td>
-                <td>{{ case.time.strftime("%Y-%m-%d %H:%M:%S")}}</td>
+                <td>{{ case.time.astimezone().strftime("%Y-%m-%d %H:%M:%S %z") }}</td>
                 <td>{{ case.location }}</td>
                 <td>{{ case.patient_id }}</td>
                 <td>{{ case.doctor_id }}</td>
