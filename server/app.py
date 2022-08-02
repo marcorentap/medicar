@@ -44,6 +44,7 @@ def show_test_db():
         # Diagnosis data must include
         # patient username
         # patient name
+        # doctor id
         # patient location
         # pulse rate
         # body temp
@@ -65,8 +66,9 @@ def show_test_db():
             db.session.commit()
             patient_list.append(new_patient)
 
-        new_case = Case(time=datetime.now(), doctor_id=None, prescription="",
+        new_case = Case(time=datetime.now(), prescription="",
             patient_id=patient_list[0].id,
+            doctor_id=request.form["doctor_id"],
             pulse_rate=request.form["pulse_rate"],
             body_temperature=request.form["body_temperature"],
             blood_oxygen_saturation=request.form["blood_oxygen_saturation"],
