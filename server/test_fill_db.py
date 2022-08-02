@@ -1,5 +1,5 @@
 from app import db, create_app
-from schema import Case, Patient, Doctor
+from schema import Case, Patient, Doctor, Institution
 import random, datetime
 
 def generate_case():
@@ -11,8 +11,7 @@ def generate_case():
             hours=random.randint(0, 24)
             ),
         patient_id = random.randint(1, 7),
-        # doctor_id = random.randint(1, 7),
-        doctor_id = None,
+        doctor_id = random.randint(7+1, 7+7),
         pulse_rate = round(random.uniform(80.0, 120.0), 1),
         body_temperature = round(random.uniform(36.0, 41.0), 1),
         blood_oxygen_saturation = round(random.uniform(95.0, 99.0), 1),
@@ -31,15 +30,20 @@ fill_data.append(Patient(username="patient5", password="password5", name="Patien
 fill_data.append(Patient(username="patient6", password="password6", name="Patient6 Full Name"))
 fill_data.append(Patient(username="patient7", password="password7", name="Patient7 Full Name"))
 
-fill_data.append(Doctor(username="doctor1", password="dpassword1", name="Doctor1 Full Name", affiliation="institute1"))
-fill_data.append(Doctor(username="doctor2", password="dpassword2", name="Doctor2 Full Name", affiliation="institute2"))
-fill_data.append(Doctor(username="doctor3", password="dpassword3", name="Doctor3 Full Name", affiliation="institute3"))
-fill_data.append(Doctor(username="doctor4", password="dpassword4", name="Doctor4 Full Name", affiliation="institute4"))
-fill_data.append(Doctor(username="doctor5", password="dpassword5", name="Doctor5 Full Name", affiliation="institute5"))
-fill_data.append(Doctor(username="doctor6", password="dpassword6", name="Doctor6 Full Name", affiliation="institute6"))
-fill_data.append(Doctor(username="doctor7", password="dpassword7", name="Doctor7 Full Name", affiliation="institute7"))
+fill_data.append(Doctor(username="doctor1", password="dpassword1", name="Doctor1 Full Name", institution_id="1"))
+fill_data.append(Doctor(username="doctor2", password="dpassword2", name="Doctor2 Full Name", institution_id="2"))
+fill_data.append(Doctor(username="doctor3", password="dpassword3", name="Doctor3 Full Name", institution_id="3"))
+fill_data.append(Doctor(username="doctor4", password="dpassword4", name="Doctor4 Full Name", institution_id="4"))
+fill_data.append(Doctor(username="doctor5", password="dpassword5", name="Doctor5 Full Name", institution_id="1"))
+fill_data.append(Doctor(username="doctor6", password="dpassword6", name="Doctor6 Full Name", institution_id="2"))
+fill_data.append(Doctor(username="doctor7", password="dpassword7", name="Doctor7 Full Name", institution_id="3"))
 
-for i in range(0, 10):
+fill_data.append(Institution(name="Medical Institution 1"))
+fill_data.append(Institution(name="Medical Institution 2"))
+fill_data.append(Institution(name="Medical Institution 3"))
+fill_data.append(Institution(name="Medical Institution 4"))
+
+for i in range(0, 50):
     fill_data.append(generate_case())
 
 create_app().app_context().push()

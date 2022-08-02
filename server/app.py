@@ -2,7 +2,7 @@ from threading import currentThread
 from flask import Flask, redirect, url_for
 from flask import request
 from flask import render_template
-from schema import db, Case, Patient, Doctor, User
+from schema import db, Case, Patient, Doctor, User, Institution
 from datetime import datetime
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 import json
@@ -21,9 +21,20 @@ app = create_app()
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
+
+@app.context_processor
+def inject_header_data():
+    if(isinstance(current_user, User)):
+        return dict(
+            doctor=Doctor.query.get(current_user.id),
+            institution=Institution.query.get(Doctor.query.get(current_user.id).institution_id)
+        )
+    else:
+        return dict()
 
 @app.route("/API/diagnosis", methods=['POST', 'GET'])
 def show_test_db():
@@ -69,12 +80,14 @@ def show_test_db():
 @app.route("/cases", methods=['GET'])
 @login_required
 def show_cases():
-    cases = Case.query.all()
+    cases = db.session.query(Case).filter(Case.doctor_id == current_user.id).all()
     for case in cases:
         case.patient_id = Patient.query.get(case.patient_id).username
-        if(case.doctor_id != None):
-            case.doctor_id = Doctor.query.get(case.doctor_id).username
+        case.doctor_id = Doctor.query.get(case.doctor_id).username
     return render_template("cases.html", cases=cases)
+    # return render_template("cases.html", doctor=Doctor.query.get(current_user.id),
+                            # institution=Institution.query.get(Doctor.query.get(current_user.id).institution_id),
+                            # cases=cases)
 
 @app.route("/cases/<case_id>", methods=['GET'])
 @login_required
@@ -135,6 +148,11 @@ def show_dump():
     response += "<br><b>patients</b><br>"
     for patient in Patient.query.all():
         response += dump_jsonify(patient)
+        response += "<br>"
+
+    response += "<br><b>institutions</b><br>"
+    for doctor in Institution.query.all():
+        response += dump_jsonify(doctor)
         response += "<br>"
 
     response += "<br><b>doctors</b><br>"

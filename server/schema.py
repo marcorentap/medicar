@@ -42,10 +42,13 @@ class User(db.Model):
         except AttributeError:
             raise NotImplementedError("No `id` attribute - override `get_id`") from None
 
-
 class Patient(User):
     __mapper_args__ = {"polymorphic_identity" : "patient"}
 
 class Doctor(User):
-    affiliation = db.Column(db.String(256))
+    institution_id = db.Column(db.Integer, ForeignKey("institution.id"))
     __mapper_args__ = {"polymorphic_identity" : "doctor"}
+
+class Institution(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(256))

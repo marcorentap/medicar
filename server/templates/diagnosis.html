@@ -10,7 +10,7 @@
 
     <tr><td><b>Doctor</b></td><td>
     {% if doctor is not none %}
-    ({{ doctor.username }}) {{ doctor.name }}, {{ doctor.affiliation }}
+    ({{ doctor.username }}) {{ doctor.name }}, {{ institution.name }}
     {% else %}
     None
     {% endif %}
