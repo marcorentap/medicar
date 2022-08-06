@@ -26,7 +26,7 @@ def generate_case():
 
     case = Session(
         user_id = random.randint(1, 7),
-        car_id = random.randint(1, 7),
+        car_id = random.randint(1, 2),
         location = "Location" + str(random.randint(1, 5)),
         time = generate_time(),
         measurement_data = json.dumps(measurement_data, default=str),
@@ -48,13 +48,46 @@ fill_data.append(User(username="patient7", password="password7", name="Patient7 
 
 fill_data.append(Car(username="medicar1", password="carpassword1", name="Medicar 1"))
 fill_data.append(Car(username="medicar2", password="carpassword2", name="Medicar 2"))
-fill_data.append(Car(username="medicar3", password="carpassword3", name="Medicar 3"))
-fill_data.append(Car(username="medicar4", password="carpassword4", name="Medicar 4"))
-fill_data.append(Car(username="medicar5", password="carpassword5", name="Medicar 5"))
-fill_data.append(Car(username="medicar6", password="carpassword6", name="Medicar 6"))
 
+fill_data.append(Car_Sensor(car_id=1, sensor_name="HGHT2000",
+                    sensor_description="Laser-based height sensor",
+                    measurement_key="height"))
+fill_data.append(Car_Sensor(car_id=1, sensor_name="MLX90614",
+                    sensor_description="IR-based temperature sensor",
+                    measurement_key="height"))
+fill_data.append(Car_Sensor(car_id=1, sensor_name="MAX30102",
+                    sensor_description="Pulse Oximeter and Heart Rate sensor",
+                    measurement_key="pulse_rate"))
+fill_data.append(Car_Sensor(car_id=1, sensor_name="MAX30102",
+                    sensor_description="Pulse Oximeter and Heart Rate sensor",
+                    measurement_key="blood_oxygen_saturation"))
+fill_data.append(Car_Sensor(car_id=1, sensor_name="Marsden WGT1002",
+                    sensor_description="Next-gen electronic weight scale",
+                    measurement_key="weight"))
+fill_data.append(Car_Sensor(car_id=1, sensor_name="PSI Blood V2",
+                    sensor_description="Blood pressure sensor",
+                    measurement_key="blood_pressure"))
 
-for i in range(0, 3):
+fill_data.append(Car_Sensor(car_id=2, sensor_name="HGHT2000",
+                    sensor_description="A classic ruler",
+                    measurement_key="height"))
+fill_data.append(Car_Sensor(car_id=2, sensor_name="MLX90614",
+                    sensor_description="Contact-based temperature sensor",
+                    measurement_key="height"))
+fill_data.append(Car_Sensor(car_id=2, sensor_name="MAX30102",
+                    sensor_description="Pulse Oximeter and Heart Rate sensor",
+                    measurement_key="pulse_rate"))
+fill_data.append(Car_Sensor(car_id=2, sensor_name="MAX30102",
+                    sensor_description="Pulse Oximeter and Heart Rate sensor",
+                    measurement_key="blood_oxygen_saturation"))
+fill_data.append(Car_Sensor(car_id=2, sensor_name="Toshiba Weighing scale",
+                    sensor_description="Home weighing scale",
+                    measurement_key="weight"))
+fill_data.append(Car_Sensor(car_id=2, sensor_name="PSI Blood V2",
+                    sensor_description="Blood pressure sensor",
+                    measurement_key="blood_pressure"))
+
+for i in range(0, 500):
     fill_data.append(generate_case())
 
 create_app().app_context().push()
