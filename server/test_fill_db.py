@@ -3,6 +3,15 @@ from server.schema import *
 import random, datetime
 import json
 
+def generate_time():
+    time = datetime.datetime.now() - datetime.timedelta(
+        days=random.randint(0, 365*5),
+        seconds=random.randint(0, 60),
+        minutes=random.randint(0, 60),
+        hours=random.randint(0, 24)
+        )
+    return time
+
 def generate_case():
     measurement_data = {
         "height" : 160 + random.randint(-30, 15),
@@ -19,16 +28,12 @@ def generate_case():
         user_id = random.randint(1, 7),
         car_id = random.randint(1, 7),
         location = "Location" + str(random.randint(1, 5)),
-        measurement_time = datetime.datetime.now() - datetime.timedelta(
-            days=random.randint(0, 365*5),
-            seconds=random.randint(0, 60),
-            minutes=random.randint(0, 60),
-            hours=random.randint(0, 24)
-            ),
+        time = generate_time(),
         measurement_data = json.dumps(measurement_data, default=str),
-        diagnosis_data = ""
+        diagnosis_data = "{}"
     )
-    print(json.dumps(case.__dict__, default=str))
+    case.measurement_time = case.time + datetime.timedelta(minutes=random.randint(5, 10), seconds=random.randint(0, 60))
+    case.diagnosis_time = case.measurement_time + datetime.timedelta(minutes=random.randint(30, 60), seconds=random.randint(0, 60))
     return case
 
 fill_data = []
@@ -49,7 +54,7 @@ fill_data.append(Car(username="medicar5", password="carpassword5", name="Medicar
 fill_data.append(Car(username="medicar6", password="carpassword6", name="Medicar 6"))
 
 
-for i in range(0, 1):
+for i in range(0, 3):
     fill_data.append(generate_case())
 
 create_app().app_context().push()

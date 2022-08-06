@@ -8,7 +8,9 @@ class Session(db.Model):
     user_id = db.Column(db.Integer, ForeignKey("user.id"))
     car_id = db.Column(db.Integer, ForeignKey("user.id"))
     location = db.Column(db.String(256))
+    time = db.Column(db.DateTime)
     measurement_time = db.Column(db.DateTime)
+    diagnosis_time = db.Column(db.DateTime)
     measurement_data = db.Column(db.String(8192))
     diagnosis_data = db.Column(db.String(4096))
 

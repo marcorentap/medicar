@@ -160,5 +160,5 @@ cython_debug/
 #.idea/
 
 # VSCode
-*.code-workspace
-server/server/database.db
+**.code-workspace
+**.db
