@@ -87,7 +87,7 @@ fill_data.append(Car_Sensor(car_id=2, sensor_name="PSI Blood V2",
                     sensor_description="Blood pressure sensor",
                     measurement_key="blood_pressure"))
 
-for i in range(0, 500):
+for i in range(0, 10):
     fill_data.append(generate_case())
 
 create_app().app_context().push()

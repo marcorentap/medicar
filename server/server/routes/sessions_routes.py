@@ -58,22 +58,22 @@ def get_session_measurements(session_id):
 def create_session_measurements(session_id):
     session = Session.query.filter_by(id=session_id).first()
     if(session is None):
-        return {"msg" : "The session_id does not exist"}, 404
+        return {"msg" : "The session id does not exist"}, 404
     else:
         # request.get_json already returns a dict
         measurement_data = request.get_json()
         session.measurement_data = json.dumps(measurement_data)
         session.measurement_time = datetime.now()
         db.session.commit()
-        return jsonify(measurement_data)
+        return get_session(session_id)
 
 @sessions_routes.route('/<session_id>/diagnosis', strict_slashes=False)
 def get_session_diagnosis(session_id):
     session = Session.query.filter_by(id=session_id).first()
     if(session is None):
-        return {"msg" : "The session_id does not exist"}, 404
+        return {"msg" : "The session id does not exist"}, 404
     else:
-        diagnosis_data = json.loads(session.diagnosis)
+        diagnosis_data = json.loads(session.diagnosis_data)
         return jsonify(diagnosis_data)
 
 @sessions_routes.route('/<session_id>/diagnosis', methods=["POST"], strict_slashes=False)
@@ -87,7 +87,7 @@ def create_session_diagnosis(session_id):
         session.diagnosis_data = json.dumps(diagnosis_data)
         session.diagnosis_time = datetime.now()
         db.session.commit()
-        return jsonify(diagnosis_data)
+        return get_session(session_id)
 
 @sessions_routes.route('/<session_id>/attach-car', methods=["POST"], strict_slashes=False)
 def attach_car(session_id):
